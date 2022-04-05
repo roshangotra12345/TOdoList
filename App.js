@@ -5,7 +5,7 @@ export default class App extends Component {
   render() {
     return (
       <View>
-        <Text>App</Text>
+        <Text>App is the best and React Native also best and it is good</Text>
       </View>
     )
   }
