@@ -1,43 +1,29 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React , {useState} from 'react';
-import Layout from './src/Component/Layout';
-import TodoItem from './src/Component/TodoItem';
+import React, {useState} from 'react';
 
-const App = () => {
-  const [modalVisible , setModalVisible] = useState(false)
-  const todo = [
-    { title: 'Strating making', checked: true, id: 1 },
-    { title: 'Pay for Rent', checked: true, id: 2 },
-    { title: 'Bug a milk', checked: true, id: 3 },
-    { title: 'Do not forget to pick up michael from school', checked: true, id: 4 },
-    ]
+const TodoItem = ({item}) => {
+  const [check, setCheck] = useState(false);
 
-
-
-
-
+  const clickHandler = () => {
+    setCheck(!check)
+    console.log("click")
+  };
 
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.tasks}>Today</Text>
-        <TouchableOpacity  onPress={() => setModalVisible(true)} style={[styles.Wrapper]}>
-          <Text style={{fontSize: 60, color: '#006CFF', marginTop: -20}}>
-            +
-          </Text> 
-        </TouchableOpacity>
-      </View>
-      {todo.map((item , i)=>{
-      return <TodoItem item={item} key={i} />
-      })}
-      <Text>
-        <Layout modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-      </Text>
+    <View>
+        <View style={styles.items}>
+          {/* This is where the tasks will go! */}
+          <Text style={styles.line}>{item.title}</Text>
+
+          <TouchableOpacity onPress={clickHandler} style={check ? styles.circleTrue : styles.circle} >
+            <Text></Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 };
 
-export default App;
+export default TodoItem;
 
 const styles = StyleSheet.create({
   tasksWrapper: {
