@@ -1,24 +1,30 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import React, {useState,useEffect} from 'react';
 
-const TodoItem = ({item}) => {
+const TodoItem = ({item,handleCheck}) => {
   const [check, setCheck] = useState(false);
 
   const clickHandler = () => {
-    setCheck(!check)
-    console.log("click")
+    handleCheck(item.id);
   };
 
+  useEffect(()=>{
+    setCheck(item.checked)
+    console.log(item)
+  },[item.checked])
+  
   return (
     <View>
-        <View style={styles.items}>
-          {/* This is where the tasks will go! */}
-          <Text style={styles.line}>{item.title}</Text>
+      <View style={styles.items}>
+        {/* This is where the tasks will go! */}
+        <Text style={styles.line}>{item.title}</Text>
 
-          <TouchableOpacity onPress={clickHandler} style={check ? styles.circleTrue : styles.circle} >
-            <Text></Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableHighlight
+          onPress={clickHandler}
+          style={check ? styles.circleTrue : styles.circle}>
+          <Text></Text>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 };

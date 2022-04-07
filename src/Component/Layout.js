@@ -1,8 +1,41 @@
-import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View ,TextInput} from "react-native";
+import React, {useState} from 'react';
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  TextInput,
+} from 'react-native';
 
-const Layout = ({modalVisible , setModalVisible}) => {
-  const [number, onChangeNumber] = React.useState(null);
+const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
+  // const [number, onChangeNumber] = React.useState(null);
+  const [text, setChangeText] = React.useState('');
+
+  const handleModal = () => setModalVisible(!modalVisible);
+
+  const handlechange = () => {
+    let temp = todo;
+
+    // modify temp to add new todo
+    if (text) {
+      let newTodo = {
+        id: todo[todo.length - 1].id + 1,
+        checked: false,
+        title: text,
+      };
+      temp.push(newTodo);
+      setTodo(temp);
+      setChangeText('');
+      console.log(temp);
+      console.log(newTodo);
+    }
+
+    handleModal();
+  };
+
+  // console.log(todo);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -10,37 +43,39 @@ const Layout = ({modalVisible , setModalVisible}) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-            
-            </Text>
+            <Text style={styles.modalText}></Text>
             <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-        
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+              style={styles.input}
+              onChangeText={setChangeText}
+              value={text}
+              placeholder="Enter Your Text"
+
+              // keyboardType="text"
+            />
+            <View style={styles.pop}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={handleModal}>
+                <Text style={styles.textStyle}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={handlechange}>
+                <Text style={styles.textStyle}>Done</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
       <Pressable
-        // style={[styles.button, styles.buttonOpen]}
-        // onPress={() => setModalVisible(true)}
+      // style={[styles.button, styles.buttonOpen]}
+      // onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Add Note</Text>
+        {/* <Text style={styles.textStyle}>Add Note</Text> */}
       </Pressable>
     </View>
   );
@@ -49,55 +84,59 @@ const Layout = ({modalVisible , setModalVisible}) => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    padding: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
-    padding: 10,
+    // padding: 10,
     elevation: 2,
-    margin:59
-
+    margin: 40,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
-
+    // backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    // backgroundColor: "#2196F3",
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    margin:14
+    color: '#2196F3',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    // margin:14
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: 'center',
   },
   input: {
-    height: 40,
+    height: 250,
+    width: 300,
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  }
+    borderRadius: 10,
+  },
+  pop: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 });
 
 export default Layout;
