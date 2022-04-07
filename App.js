@@ -25,7 +25,7 @@ const App = () => {
 
   const handleDelete = () => {
     let numtodo = todo.filter(item => !item.checked);
-    console.log(numtodo);
+    
     setTodo(numtodo);
   };
 

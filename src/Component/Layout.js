@@ -28,14 +28,13 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
       temp.push(newTodo);
       setTodo(temp);
       setChangeText('');
-      console.log(temp);
-      console.log(newTodo);
+    
     }
 
     handleModal();
   };
 
-  // console.log(todo);
+  
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -54,7 +53,7 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
               value={text}
               placeholder="Enter Your Text"
 
-              // keyboardType="text"
+            
             />
             <View style={styles.pop}>
               <Pressable
