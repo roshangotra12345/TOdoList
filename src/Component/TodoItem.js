@@ -1,22 +1,20 @@
 import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
-const TodoItem = ({item,handleCheck}) => {
+const TodoItem = ({item, handleCheck}) => {
   const [check, setCheck] = useState(false);
 
   const clickHandler = () => {
     handleCheck(item.id);
   };
 
-  useEffect(()=>{
-    setCheck(item.checked)
-    console.log(item)
-  },[item.checked])
-  
+  useEffect(() => {
+    setCheck(item.checked);
+  }, [item.checked]);
+
   return (
     <View>
       <View style={styles.items}>
-        {/* This is where the tasks will go! */}
         <Text style={styles.line}>{item.title}</Text>
 
         <TouchableHighlight
@@ -34,7 +32,6 @@ export default TodoItem;
 const styles = StyleSheet.create({
   tasksWrapper: {
     flexDirection: 'row',
-    // justifyContent:"space-between",
     justifyContent: 'space-around',
   },
   tasks: {
@@ -48,16 +45,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 20,
     marginTop: 10,
-    // paddingLeft:15,
-    // paddingRight:15,
-
-    // borderWidth:2,
-    // borderRadius:30,
-    // justifyContent:"center",
-    // alignItems:"center",
-    // textAlign:"center",
-    // borderColor:"blue"
-
     height: 50,
     width: 50,
     display: 'flex',
@@ -65,13 +52,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     borderRadius: 30,
-    // backgroundColor: 'blue',
     color: '#006CFF',
     borderWidth: 2,
     borderColor: '#006CFF',
   },
   line: {
-    borderBottomColor: 'black',
+    borderBottomColor: '#DADADA',
     borderBottomWidth: 1,
     paddingLeft: 4,
     padding: 30,
@@ -86,7 +72,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 28,
     backgroundColor: '#fff',
-    border: '#DADADA',
+    borderColor:"#DADADA"
+    
   },
   circleTrue: {
     borderWidth: 2,

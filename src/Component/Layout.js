@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
-  // const [number, onChangeNumber] = React.useState(null);
   const [text, setChangeText] = React.useState('');
 
   const handleModal = () => setModalVisible(!modalVisible);
@@ -18,7 +17,6 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
   const handlechange = () => {
     let temp = todo;
 
-    // modify temp to add new todo
     if (text) {
       let newTodo = {
         id: todo[todo.length - 1].id + 1,
@@ -28,13 +26,11 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
       temp.push(newTodo);
       setTodo(temp);
       setChangeText('');
-    
     }
 
     handleModal();
   };
 
-  
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -47,35 +43,29 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}></Text>
+            <Text style={styles.title}>Add Todo</Text>
             <TextInput
               style={styles.input}
               onChangeText={setChangeText}
               value={text}
-              placeholder="Enter Your Text"
-
-            
+              placeholder=""
             />
             <View style={styles.pop}>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={handleModal}>
-                <Text style={styles.textStyle}>Cancel</Text>
+                <Text style={styles.textStyle1}>Cancel</Text>
               </Pressable>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
                 onPress={handlechange}>
-                <Text style={styles.textStyle}>Done</Text>
+                <Text style={styles.textStyle2}>Done</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </Modal>
-      <Pressable
-      // style={[styles.button, styles.buttonOpen]}
-      // onPress={() => setModalVisible(true)}
-      >
-        {/* <Text style={styles.textStyle}>Add Note</Text> */}
-      </Pressable>
+      <Pressable></Pressable>
     </View>
   );
 };
@@ -88,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    margin: 18,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
@@ -102,39 +92,43 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  button: {
-    borderRadius: 20,
-    // padding: 10,
-    elevation: 2,
-    margin: 40,
-  },
-  buttonOpen: {
-    // backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    // backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: '#2196F3',
+
+  textStyle1: {
+    color: '#006CFF',
     fontWeight: 'bold',
-    textAlign: 'center',
+    marginRight: 200,
+
+    // margin:14
+  },
+  textStyle2: {
+    color: '#006CFF',
+    fontWeight: 'bold',
+    marginLeft: 10,
+
     // margin:14
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 10,
     textAlign: 'center',
   },
   input: {
-    height: 250,
+    height: 200,
     width: 300,
-    margin: 12,
+    margin: 10,
     borderWidth: 1,
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
+    borderColor: '#EBEFF5',
   },
   pop: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  title: {
+    marginRight: 200,
+    color: '#000000',
+    fontWeight: 'bold',
+    fontSize: 23,
   },
 });
 

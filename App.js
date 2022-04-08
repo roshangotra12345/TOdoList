@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Layout from './src/Component/Layout';
@@ -25,7 +26,7 @@ const App = () => {
 
   const handleDelete = () => {
     let numtodo = todo.filter(item => !item.checked);
-    
+
     setTodo(numtodo);
   };
 
@@ -39,7 +40,7 @@ const App = () => {
           id: item.id,
         });
       } else {
-      tempTo.push(item);
+        tempTo.push(item);
       }
     });
     setTodo(tempTo);
@@ -65,16 +66,12 @@ const App = () => {
       <View style={styles.tasksWrapper}>
         <Text style={styles.tasks}>Today</Text>
         {isDelete && (
-          <TouchableOpacity  onPress={handleDelete}>
-            <Text style={styles.delete}>
-              Delete
-            </Text>
+          <TouchableOpacity onPress={handleDelete}>
+            <Text style={styles.delete}>Delete</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity onPress={handleModal} style={[styles.Wrapper]}>
-          <Text style={{fontSize: 60, color: '#006CFF', marginTop: -20}}>
-            +
-          </Text>
+        <TouchableOpacity onPress={handleModal}>
+          <Image style={styles.image} source={require('./Assests/Group.png')} />
         </TouchableOpacity>
       </View>
       <ScrollView>
@@ -100,42 +97,26 @@ export default App;
 const styles = StyleSheet.create({
   tasksWrapper: {
     flexDirection: 'row',
-    // justifyContent:"space-between",
     justifyContent: 'space-around',
   },
   tasks: {
     flex: 1,
-    fontSize: 40,
+    fontSize: 35,
     marginLeft: 15,
     fontWeight: '800',
     margin: 2,
+    color: '#252A31',
   },
-  Wrapper: {
-    marginLeft: 40,
-    marginRight: 20,
-    marginTop: 10,
-    // paddingLeft:15,
-    // paddingRight:15,
-
-    // borderWidth:2,
-    // borderRadius:30,
-    // justifyContent:"center",
-    // alignItems:"center",
-    // textAlign:"center",
-    // borderColor:"blue"
-
-    height: 50,
-    width: 50,
+  image: {
+    marginTop: 18,
+    marginRight: 30,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
 
     borderRadius: 30,
-    // backgroundColor: 'blue',
-    color: '#006CFF',
-    borderWidth: 2,
-    borderColor: '#006CFF',
   },
+
   line: {
     borderBottomColor: 'black',
     borderBottomWidth: 1,
