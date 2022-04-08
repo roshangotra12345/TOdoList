@@ -10,10 +10,11 @@ import {
   TextInput,
 } from 'react-native';
 
-const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
+const Layout = ({modalVisible, setModalVisible, setTodo, todo,editHandler}) => {
   const [text, setChangeText] = React.useState('');
 
   const handleModal = () => setModalVisible(!modalVisible);
+
 
   const handlechange = () => {
     let temp = todo;
@@ -31,6 +32,7 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
 
     handleModal();
   };
+  console.log(todo);
 
   return (
     <View style={styles.centeredView}>
@@ -44,12 +46,14 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}></Text>
-            <Text style={styles.title}>Add Todo</Text>
+            <Text style={styles.title} >Add Todo</Text>
+           
             <TextInput
               style={styles.input}
               onChangeText={setChangeText}
               value={text}
               placeholder=""
+          
             />
             <View style={styles.pop}>
               <Pressable

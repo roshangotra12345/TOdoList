@@ -1,13 +1,18 @@
-import {StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import {Text, View, TouchableHighlight, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from '../../TudoItemStyle';
-const TodoItem = ({item, handleCheck}) => {
+const TodoItem = ({item, handleCheck, handleModal, editModal}) => {
   const [check, setCheck] = useState(false);
 
   const clickHandler = () => {
     handleCheck(item.id);
   };
 
+  const handleEdit = () => {
+    editModal(item);
+  };
+  
+  
   useEffect(() => {
     setCheck(item.checked);
   }, [item.checked]);
@@ -15,7 +20,9 @@ const TodoItem = ({item, handleCheck}) => {
   return (
     <View>
       <View style={styles.items}>
-        <Text style={styles.line}>{item.title}</Text>
+        <Pressable onPress={handleEdit}>
+          <Text style={styles.line}>{item.title}</Text>
+        </Pressable>
 
         <TouchableHighlight
           onPress={clickHandler}

@@ -13,6 +13,7 @@ import {styles} from './Appstyle';
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [edit, setedit] = useState({});
   const [isDelete, setIsDelete] = useState(false);
   const [todo, setTodo] = useState([
     {title: 'Strating making', checked: false, id: 1},
@@ -24,6 +25,11 @@ const App = () => {
       id: 4,
     },
   ]);
+
+  const editModal = Item => {
+    setedit(Item);
+    handleModal()
+  };
 
   const handleDelete = () => {
     let numtodo = todo.filter(item => !item.checked);
@@ -77,8 +83,17 @@ const App = () => {
       </View>
       <ScrollView>
         {todo?.map((item, i) => {
-          return <TodoItem item={item} key={i} handleCheck={handleCheck} />;
-        })}
+          return (
+            <TodoItem
+              item={item}
+              key={i}
+              handleCheck={handleCheck}
+              todo={todo}
+              editModal={editModal}
+              handleModal={handleModal}
+              />
+              );
+            })}
       </ScrollView>
 
       <Text>
@@ -87,6 +102,7 @@ const App = () => {
           setModalVisible={setModalVisible}
           setTodo={setTodo}
           todo={todo}
+          edit={edit}
         />
       </Text>
     </View>
