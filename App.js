@@ -13,8 +13,8 @@ import {styles} from './Appstyle';
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [edit, setedit] = useState({});
-  const [select , setSelected] = useState(false);
+  const [edit, setEdit] = useState({});
+  const [select, setSelected] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [todo, setTodo] = useState([
     {title: 'Strating making', checked: false, id: 1},
@@ -27,10 +27,9 @@ const App = () => {
     },
   ]);
 
-  const editModal = (Item) => {
-    setedit(Item);
-    handleModal()
-
+  const editModal = Item => {
+    setEdit(Item);
+    handleModal();
   };
 
   const handleDelete = () => {
@@ -55,32 +54,28 @@ const App = () => {
     setTodo(tempTo);
   };
 
-  const handleEdit= (text,id , setChangeText) =>{
-
-      console.log(text , id , "-------------------------------->>>>>>>.")
-
+  const handleEdit = (text, id, setChangeText) => {
     let tempedit = [];
-    todo.forEach(item =>{
-      if(id == item.id){
+    todo.forEach(item => {
+      if (id == item.id) {
         tempedit.push({
-         title:text,
-         checked:!item.checked,
-         id:item.id,
-        })
+          title: text,
+          checked: item.checked,
+          id: item.id,
+        });
+      } else {
+        tempedit.push(item);
       }
-      else{
-      tempedit.push(item)
-      }
-    })
+    });
     setTodo(tempedit);
-    setModalVisible(false)
-    setChangeText("")
-    setSelected(false)
-  } 
+    setModalVisible(false);
+    setChangeText('');
+    setSelected(false);
+  };
 
   const handleModal = () => {
     // setSelected(false)
-    setModalVisible(!modalVisible)
+    setModalVisible(!modalVisible);
   };
 
   useEffect(() => {
@@ -96,9 +91,6 @@ const App = () => {
     deleteCheck();
   }, [todo]);
 
-
-  console.log(todo , "todooooooooooooooooooo")
-
   return (
     <View style={{flex: 1}}>
       <View style={styles.tasksWrapper}>
@@ -113,31 +105,27 @@ const App = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        {todo?.map((item, i) => {
-          return (
-            <TodoItem
-              item={item}
-              key={i}
-              handleCheck={handleCheck}
-              todo={todo}
-              editModal={editModal}
-              setSelected = {setSelected}
-              />
-              );
-            })}
+        {todo?.map(item => (
+          <TodoItem
+            item={item}
+            key={item.id}
+            handleCheck={handleCheck}
+            todo={todo}
+            editModal={editModal}
+            setSelected={setSelected}
+          />
+        ))}
       </ScrollView>
 
-      <Text>
-        <Layout
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          setTodo={setTodo}
-          todo={todo}
-          edit={edit}
-          handleEdit={handleEdit}
-          select={select}
-        />
-      </Text>
+      <Layout
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        setTodo={setTodo}
+        todo={todo}
+        edit={edit}
+        handleEdit={handleEdit}
+        select={select}
+      />
     </View>
   );
 };

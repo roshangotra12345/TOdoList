@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {styles} from '../../LayoutStyle';
 import {
   Alert,
@@ -10,18 +10,23 @@ import {
   TextInput,
 } from 'react-native';
 
-const Layout = ({modalVisible, setModalVisible, setTodo, todo,edit,handleEdit,select}) => {
+const Layout = ({
+  modalVisible,
+  setModalVisible,
+  setTodo,
+  todo,
+  edit,
+  handleEdit,
+  select,
+}) => {
   const [text, setChangeText] = React.useState('');
 
-  const {title , id} = edit;
-
-  console.log(edit , "edit-----.....")
+  const {title, id} = edit;
 
   const handleModal = () => {
-    setChangeText("")
-    setModalVisible(!modalVisible)
+    setChangeText('');
+    setModalVisible(!modalVisible);
   };
-
 
   const handlechange = () => {
     let temp = todo;
@@ -40,16 +45,13 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo,edit,handleEdit,se
     handleModal();
   };
 
-
   useEffect(() => {
     if (title) {
       setChangeText(title);
-    } 
-    else {
+    } else {
       setChangeText('');
     }
   }, [edit]);
-
 
   return (
     <View style={styles.centeredView}>
@@ -63,14 +65,13 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo,edit,handleEdit,se
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}></Text>
-            <Text style={styles.title} >Add Todo</Text>
-           
+            <Text style={styles.title}>Add Todo</Text>
+
             <TextInput
               style={styles.input}
               onChangeText={setChangeText}
               value={text}
               placeholder=""
-          
             />
             <View style={styles.pop}>
               <Pressable
@@ -78,18 +79,19 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo,edit,handleEdit,se
                 onPress={handleModal}>
                 <Text style={styles.textStyle1}>Cancel</Text>
               </Pressable>
-            { 
-              select?
-             <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={()=>handleEdit(text,id , setChangeText)} >
-                <Text style={styles.textStyle2}>Update</Text>
-              </Pressable>: 
-              <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={handlechange} >
-              <Text style={styles.textStyle2}>Done</Text>
-            </Pressable>  }
+              {select ? (
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => handleEdit(text, id, setChangeText)}>
+                  <Text style={styles.textStyle2}>Update</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={handlechange}>
+                  <Text style={styles.textStyle2}>Done</Text>
+                </Pressable>
+              )}
             </View>
           </View>
         </View>
