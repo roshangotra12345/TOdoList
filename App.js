@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  FlatList,
   Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
@@ -18,7 +19,7 @@ const App = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [todo, setTodo] = useState([
     {title: 'Strating making', checked: false, id: 1},
-    {title: 'Pay for Rent', checked: false, id: 2},
+    {title: 'Pay for 3 Rent', checked: false, id: 2},
     {title: 'Bug a milk', checked: false, id: 3},
     {
       title: 'Do not forget to pick up michael from school',
@@ -74,7 +75,6 @@ const App = () => {
   };
 
   const handleModal = () => {
-    // setSelected(false)
     setModalVisible(!modalVisible);
   };
 
@@ -94,7 +94,7 @@ const App = () => {
   return (
     <View style={{flex: 1}}>
       <View style={styles.tasksWrapper}>
-        <Text style={styles.tasks}>Today</Text>
+        <Text style={styles.tasks}>Todayg</Text>
         {isDelete && (
           <TouchableOpacity onPress={handleDelete}>
             <Text style={styles.delete}>Delete</Text>
@@ -104,8 +104,10 @@ const App = () => {
           <Image style={styles.image} source={require('./Assests/Group.png')} />
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        {todo?.map(item => (
+
+      <FlatList
+        data={todo}
+        renderItem={({item}) => (
           <TodoItem
             item={item}
             key={item.id}
@@ -114,8 +116,8 @@ const App = () => {
             editModal={editModal}
             setSelected={setSelected}
           />
-        ))}
-      </ScrollView>
+        )}
+      />
 
       <Layout
         modalVisible={modalVisible}
