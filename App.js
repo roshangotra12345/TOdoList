@@ -14,6 +14,7 @@ import {styles} from './Appstyle';
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [edit, setedit] = useState({});
+  const [select , setSelected] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [todo, setTodo] = useState([
     {title: 'Strating making', checked: false, id: 1},
@@ -26,9 +27,10 @@ const App = () => {
     },
   ]);
 
-  const editModal = Item => {
+  const editModal = (Item) => {
     setedit(Item);
     handleModal()
+
   };
 
   const handleDelete = () => {
@@ -53,7 +55,33 @@ const App = () => {
     setTodo(tempTo);
   };
 
-  const handleModal = () => setModalVisible(!modalVisible);
+  const handleEdit= (text,id , setChangeText) =>{
+
+      console.log(text , id , "-------------------------------->>>>>>>.")
+
+    let tempedit = [];
+    todo.forEach(item =>{
+      if(id == item.id){
+        tempedit.push({
+         title:text,
+         checked:!item.checked,
+         id:item.id,
+        })
+      }
+      else{
+      tempedit.push(item)
+      }
+    })
+    setTodo(tempedit);
+    setModalVisible(false)
+    setChangeText("")
+    setSelected(false)
+  } 
+
+  const handleModal = () => {
+    // setSelected(false)
+    setModalVisible(!modalVisible)
+  };
 
   useEffect(() => {
     const deleteCheck = () => {
@@ -67,6 +95,9 @@ const App = () => {
     };
     deleteCheck();
   }, [todo]);
+
+
+  console.log(todo , "todooooooooooooooooooo")
 
   return (
     <View style={{flex: 1}}>
@@ -90,7 +121,7 @@ const App = () => {
               handleCheck={handleCheck}
               todo={todo}
               editModal={editModal}
-              handleModal={handleModal}
+              setSelected = {setSelected}
               />
               );
             })}
@@ -103,6 +134,8 @@ const App = () => {
           setTodo={setTodo}
           todo={todo}
           edit={edit}
+          handleEdit={handleEdit}
+          select={select}
         />
       </Text>
     </View>

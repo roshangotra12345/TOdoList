@@ -1,14 +1,16 @@
 import {Text, View, TouchableHighlight, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {styles} from '../../TudoItemStyle';
-const TodoItem = ({item, handleCheck, handleModal, editModal}) => {
+const TodoItem = ({item, handleCheck, handleModal, editModal , setSelected}) => {
   const [check, setCheck] = useState(false);
+  
 
   const clickHandler = () => {
     handleCheck(item.id);
   };
 
   const handleEdit = () => {
+    setSelected(true)
     editModal(item);
   };
   
@@ -16,6 +18,8 @@ const TodoItem = ({item, handleCheck, handleModal, editModal}) => {
   useEffect(() => {
     setCheck(item.checked);
   }, [item.checked]);
+
+
 
   return (
     <View>
