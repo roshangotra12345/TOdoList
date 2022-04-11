@@ -45,7 +45,6 @@ export const styles = StyleSheet.create({
     borderColor: '#DADADA',
   },
   circleTrue: {
-    borderWidth: 2,
     height: 30,
     width: 30,
     borderRadius: 23,

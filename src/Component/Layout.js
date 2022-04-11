@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {styles} from '../../LayoutStyle';
 import {
   Alert,
@@ -10,10 +10,23 @@ import {
   TextInput,
 } from 'react-native';
 
-const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
+const Layout = ({
+  modalVisible,
+  setModalVisible,
+  setTodo,
+  todo,
+  edit,
+  handleEdit,
+  select,
+}) => {
   const [text, setChangeText] = React.useState('');
 
-  const handleModal = () => setModalVisible(!modalVisible);
+  const {title, id} = edit;
+
+  const handleModal = () => {
+    setChangeText('');
+    setModalVisible(!modalVisible);
+  };
 
   const handlechange = () => {
     let temp = todo;
@@ -32,6 +45,14 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
     handleModal();
   };
 
+  useEffect(() => {
+    if (title) {
+      setChangeText(title);
+    } else {
+      setChangeText('');
+    }
+  }, [edit]);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -45,6 +66,7 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
           <View style={styles.modalView}>
             <Text style={styles.modalText}></Text>
             <Text style={styles.title}>Add Todo</Text>
+
             <TextInput
               style={styles.input}
               onChangeText={setChangeText}
@@ -57,11 +79,19 @@ const Layout = ({modalVisible, setModalVisible, setTodo, todo}) => {
                 onPress={handleModal}>
                 <Text style={styles.textStyle1}>Cancel</Text>
               </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={handlechange}>
-                <Text style={styles.textStyle2}>Done</Text>
-              </Pressable>
+              {select ? (
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => handleEdit(text, id, setChangeText)}>
+                  <Text style={styles.textStyle2}>Update</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={handlechange}>
+                  <Text style={styles.textStyle2}>Done</Text>
+                </Pressable>
+              )}
             </View>
           </View>
         </View>
